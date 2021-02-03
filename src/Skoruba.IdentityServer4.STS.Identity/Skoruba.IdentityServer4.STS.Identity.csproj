@@ -11,6 +11,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Content Remove="serilog.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="serilog.json" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="AspNetCore.HealthChecks.MySql" Version="3.1.1" />
         <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="3.1.1" />
         <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="3.1.1" />
