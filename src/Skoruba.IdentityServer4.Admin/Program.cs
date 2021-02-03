@@ -1,20 +1,16 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.AzureKeyVault;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Skoruba.IdentityServer4.Admin.Configuration;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.DbContexts;
 using Skoruba.IdentityServer4.Admin.EntityFramework.Shared.Entities.Identity;
 using Skoruba.IdentityServer4.Admin.Helpers;
-using Skoruba.IdentityServer4.Shared.Configuration.Common;
 using Skoruba.IdentityServer4.Shared.Helpers;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Skoruba.IdentityServer4.Admin
 {
@@ -83,9 +79,9 @@ namespace Skoruba.IdentityServer4.Admin
                 configurationBuilder.AddUserSecrets<Startup>();
             }
 
-            var configuration = configurationBuilder.Build();
+            _ = configurationBuilder.Build();
 
-            configuration.AddAzureKeyVaultConfiguration(configurationBuilder);
+            //configuration.AddAzureKeyVaultConfiguration(configurationBuilder);
 
             configurationBuilder.AddCommandLine(args);
             configurationBuilder.AddEnvironmentVariables();
@@ -114,7 +110,7 @@ namespace Skoruba.IdentityServer4.Admin
                          configApp.AddUserSecrets<Startup>();
                      }
 
-                     configurationRoot.AddAzureKeyVaultConfiguration(configApp);
+                     //configurationRoot.AddAzureKeyVaultConfiguration(configApp);
 
                      configApp.AddEnvironmentVariables();
                      configApp.AddCommandLine(args);

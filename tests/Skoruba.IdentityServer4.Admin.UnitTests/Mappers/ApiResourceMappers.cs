@@ -21,7 +21,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 			//Assert
 			apiResourceDto.Should().NotBeNull();
 
-			apiResource.ShouldBeEquivalentTo(apiResourceDto, options =>
+			apiResource.Should().Be(apiResourceDto, options =>
 				options.Excluding(o => o.Secrets)
 					   .Excluding(o => o.Scopes)
 					   .Excluding(o => o.Properties)
@@ -33,10 +33,10 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 					   .Excluding(o => o.UserClaims));
 
 			//Assert collection
-			apiResource.UserClaims.Select(x => x.Type).ShouldBeEquivalentTo(apiResourceDto.UserClaims);
+			apiResource.UserClaims.Select(x => x.Type).Should().Be(apiResourceDto.UserClaims);
 
             var allowedAlgList = AllowedSigningAlgorithmsConverter.Converter.Convert(apiResource.AllowedAccessTokenSigningAlgorithms, null);
-			allowedAlgList.ShouldBeEquivalentTo(apiResourceDto.AllowedAccessTokenSigningAlgorithms);
+			allowedAlgList.Should().Be(apiResourceDto.AllowedAccessTokenSigningAlgorithms);
 		}
 
 		[Fact]
@@ -50,7 +50,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 
 			apiResource.Should().NotBeNull();
 
-			apiResource.ShouldBeEquivalentTo(apiResourceDto, options =>
+			apiResource.Should().Be(apiResourceDto, options =>
 				options.Excluding(o => o.Secrets)
 					.Excluding(o => o.Scopes)
 					.Excluding(o => o.Properties)
@@ -62,9 +62,9 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 					.Excluding(o => o.UserClaims));
 
 			//Assert collection
-			apiResource.UserClaims.Select(x => x.Type).ShouldBeEquivalentTo(apiResourceDto.UserClaims);
+			apiResource.UserClaims.Select(x => x.Type).Should().Be(apiResourceDto.UserClaims);
             var allowedAlgList = AllowedSigningAlgorithmsConverter.Converter.Convert(apiResource.AllowedAccessTokenSigningAlgorithms, null);
-            allowedAlgList.ShouldBeEquivalentTo(apiResourceDto.AllowedAccessTokenSigningAlgorithms);
+            allowedAlgList.Should().Be(apiResourceDto.AllowedAccessTokenSigningAlgorithms);
 		}
 
 		[Fact]
@@ -78,13 +78,13 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 
             apiScope.Should().NotBeNull();
 
-            apiScope.ShouldBeEquivalentTo(apiScopeDto, options =>
+            apiScope.Should().Be(apiScopeDto, options =>
                 options.Excluding(o => o.UserClaims)
                     .Excluding(o => o.ApiScopeProperties)
                     .Excluding(o => o.UserClaimsItems));
 
 			//Assert collection
-            apiScopeDto.UserClaims.Select(x => x.Type).ShouldBeEquivalentTo(apiScope.UserClaims);
+            apiScopeDto.UserClaims.Select(x => x.Type).Should().Be(apiScope.UserClaims);
             apiScope.Id.Should().Be(apiScopeDto.Id);
 		}
 
@@ -99,13 +99,13 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 
 			apiScope.Should().NotBeNull();
 
-			apiScope.ShouldBeEquivalentTo(apiScopeDto, options =>
+			apiScope.Should().Be(apiScopeDto, options =>
 				options.Excluding(o => o.UserClaims)
                        .Excluding(o => o.Properties)
 					   .Excluding(o => o.Id));
 
 			//Assert collection
-			apiScope.UserClaims.Select(x => x.Type).ShouldBeEquivalentTo(apiScopeDto.UserClaims);
+			apiScope.UserClaims.Select(x => x.Type).Should().Be(apiScopeDto.UserClaims);
 			apiScope.Id.Should().Be(apiScopeDto.Id);
 		}
 
@@ -121,7 +121,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 			//Assert
 			apiSecretsDto.Should().NotBeNull();
 
-			apiSecret.ShouldBeEquivalentTo(apiSecretsDto, options =>
+			apiSecret.Should().Be(apiSecretsDto, options =>
 				options.Excluding(o => o.ApiResource)
 					.Excluding(o => o.Created)
 					.Excluding(o => o.Id));
@@ -140,7 +140,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Mappers
 
 			apiSecret.Should().NotBeNull();
 
-			apiSecret.ShouldBeEquivalentTo(apiSecretsDto, options =>
+			apiSecret.Should().Be(apiSecretsDto, options =>
 				options.Excluding(o => o.ApiResource)
 					.Excluding(o => o.Created)
 					.Excluding(o => o.Id));

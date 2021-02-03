@@ -1,13 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Skoruba.IdentityServer4.Shared.Configuration.Common;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Skoruba.IdentityServer4.Shared.Configuration.Common;
-using Skoruba.IdentityServer4.Shared.Helpers;
-using Skoruba.IdentityServer4.STS.Identity.Configuration;
 
 namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 {
@@ -69,12 +65,12 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
 
                 builder.AddSigningCredential(certificate);
             }
-            else if (certificateConfiguration.UseSigningCertificateForAzureKeyVault)
-            {
-                var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
+            //else if (certificateConfiguration.UseSigningCertificateForAzureKeyVault)
+            //{
+            //    var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
 
-                builder.AddSigningCredential(x509Certificate2Certs.ActiveCertificate);
-            }
+            //    builder.AddSigningCredential(x509Certificate2Certs.ActiveCertificate);
+            //}
             else if (certificateConfiguration.UseSigningCertificatePfxFile)
             {
                 if (string.IsNullOrWhiteSpace(certificateConfiguration.SigningCertificatePfxFilePath))
@@ -144,15 +140,15 @@ namespace Skoruba.IdentityServer4.STS.Identity.Helpers
                 builder.AddValidationKey(certificate);
 
             }
-            else if (certificateConfiguration.UseValidationCertificateForAzureKeyVault)
-            {
-                var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
+            //else if (certificateConfiguration.UseValidationCertificateForAzureKeyVault)
+            //{
+            //    var x509Certificate2Certs = AzureKeyVaultHelpers.GetCertificates(azureKeyVaultConfiguration).GetAwaiter().GetResult();
 
-                if (x509Certificate2Certs.SecondaryCertificate != null)
-                {
-                    builder.AddValidationKey(x509Certificate2Certs.SecondaryCertificate);
-                }
-            }
+            //    if (x509Certificate2Certs.SecondaryCertificate != null)
+            //    {
+            //        builder.AddValidationKey(x509Certificate2Certs.SecondaryCertificate);
+            //    }
+            //}
             else if (certificateConfiguration.UseValidationCertificatePfxFile)
             {
                 if (string.IsNullOrWhiteSpace(certificateConfiguration.ValidationCertificatePfxFilePath))

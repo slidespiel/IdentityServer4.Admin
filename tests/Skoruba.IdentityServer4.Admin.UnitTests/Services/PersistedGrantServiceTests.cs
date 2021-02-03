@@ -71,7 +71,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
 
                     var auditLoggerMock = new Mock<IAuditEventLogger>();
                     var auditLogger = auditLoggerMock.Object;
-                    
+
                     var persistedGrantService = GetPersistedGrantService(persistedGrantRepository, localizer, auditLogger);
 
                     //Generate persisted grant
@@ -86,7 +86,7 @@ namespace Skoruba.IdentityServer4.Admin.UnitTests.Services
                     var persistedGrantAdded = await persistedGrantService.GetPersistedGrantAsync(persistedGrantKey);
 
                     //Assert
-                    persistedGrant.ShouldBeEquivalentTo(persistedGrantAdded);
+                    persistedGrant.Should().Be(persistedGrantAdded);
                 }
             }
         }
