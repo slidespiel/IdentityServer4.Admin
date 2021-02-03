@@ -3,7 +3,6 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Serilog;
 using Skoruba.IdentityServer4.Shared.Helpers;
 
 namespace Skoruba.IdentityServer4.Admin.Api
@@ -14,9 +13,6 @@ namespace Skoruba.IdentityServer4.Admin.Api
         {
             var configuration = GetConfiguration(args);
 
-            Log.Logger = new LoggerConfiguration()
-                .ReadFrom.Configuration(configuration)
-                .CreateLogger();
             try
             {
                 DockerHelpers.ApplyDockerConfiguration(configuration);
@@ -25,11 +21,11 @@ namespace Skoruba.IdentityServer4.Admin.Api
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                //Log.Fatal(ex, "Host terminated unexpectedly");
             }
             finally
             {
-                Log.CloseAndFlush();
+                //Log.CloseAndFlush();
             }
         }
 
@@ -41,9 +37,9 @@ namespace Skoruba.IdentityServer4.Admin.Api
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
-                .AddJsonFile("serilog.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true);
+                .AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true);
+                //.AddJsonFile("serilog.json", optional: true, reloadOnChange: true)
+                //.AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true);
 
             if (isDevelopment)
             {
@@ -66,11 +62,11 @@ namespace Skoruba.IdentityServer4.Admin.Api
                  {
                      var configurationRoot = configApp.Build();
 
-                     configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
+                     //configApp.AddJsonFile("serilog.json", optional: true, reloadOnChange: true);
 
                      var env = hostContext.HostingEnvironment;
 
-                     configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+                     //configApp.AddJsonFile($"serilog.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
 
                      if (env.IsDevelopment())
                      {
@@ -86,12 +82,13 @@ namespace Skoruba.IdentityServer4.Admin.Api
                 {
                     webBuilder.ConfigureKestrel(options => options.AddServerHeader = false);
                     webBuilder.UseStartup<Startup>();
-                })
-                .UseSerilog((hostContext, loggerConfig) =>
-                {
-                    loggerConfig
-                        .ReadFrom.Configuration(hostContext.Configuration)
-                        .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
+                    webBuilder.UseSentry("https://7d49fc2605bb4f989759efb9044e8979@o361175.ingest.sentry.io/5620390");
                 });
+                //.UseSerilog((hostContext, loggerConfig) =>
+                //{
+                //    loggerConfig
+                //        .ReadFrom.Configuration(hostContext.Configuration)
+                //        .Enrich.WithProperty("ApplicationName", hostContext.HostingEnvironment.ApplicationName);
+                //});
     }
 }
