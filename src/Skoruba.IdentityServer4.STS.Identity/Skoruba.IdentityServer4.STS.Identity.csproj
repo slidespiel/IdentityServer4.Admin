@@ -37,6 +37,13 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Content Update="wwwroot\favicon.ico">
+        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
       <EmbeddedResource Update="Resources\Views\Account\RegisterConfirmation.ru.resx">
         <Generator>ResXFileCodeGenerator</Generator>
       </EmbeddedResource>
