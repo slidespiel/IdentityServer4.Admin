@@ -23,7 +23,7 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <param name="services"></param>
         /// <param name="optionsAction"></param>
         /// <returns></returns>
-        public static IServiceCollection AddIdentityServer4AdminUI<TIdentityDbContext, TIdentityServerDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, TAuditLog, TDataProtectionDbContext>(this IServiceCollection services, Action<IdentityServer4AdminUIOptions> optionsAction) 
+        public static IServiceCollection AddIdentityServer4AdminUI<TIdentityDbContext, TIdentityServerDbContext, TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext, TAuditLog, TDataProtectionDbContext>(this IServiceCollection services, Action<IdentityServer4AdminUIOptions> optionsAction)
             where TIdentityDbContext : IdentityDbContext<IdentityUser<string>, IdentityRole, string, IdentityUserClaim<string>, IdentityUserRole<string>, IdentityUserLogin<string>, IdentityRoleClaim<string>, IdentityUserToken<string>>
             where TIdentityServerDbContext : DbContext, IAdminConfigurationDbContext
             where TPersistedGrantDbContext : DbContext, IAdminPersistedGrantDbContext
@@ -116,7 +116,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 services.RegisterDbContexts<TIdentityDbContext, TIdentityServerDbContext,
                     TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext,
-                    TDataProtectionDbContext, TAuditLog>(options.ConnectionStrings, options.DatabaseProvider, options.DatabaseMigrations);
+                    TDataProtectionDbContext, TAuditLog>(options.ConnectionStrings, options.DatabaseMigrations);
             }
             else
             {
@@ -124,7 +124,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     TPersistedGrantDbContext, TLogDbContext, TAuditLogDbContext,
                     TDataProtectionDbContext, TAuditLog>();
             }
-            
+
             // Save data protection keys to db, using a common application name shared between Admin and STS
             services.AddDataProtection<TDataProtectionDbContext>(options.DataProtection, options.AzureKeyVault);
 
@@ -185,7 +185,7 @@ namespace Microsoft.Extensions.DependencyInjection
             var healthChecksBuilder = options.HealthChecksBuilderFactory?.Invoke(services) ?? services.AddHealthChecks();
             healthChecksBuilder.AddIdSHealthChecks<TIdentityServerDbContext, TPersistedGrantDbContext,
                 TIdentityDbContext, TLogDbContext, TAuditLogDbContext,
-                TDataProtectionDbContext, TAuditLog>(options.Admin, options.ConnectionStrings, options.DatabaseProvider);
+                TDataProtectionDbContext, TAuditLog>(options.Admin, options.ConnectionStrings);
 
             // Adds a startup filter for further middleware configuration.
             services.AddSingleton(options.Testing);
