@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Skoruba.IdentityServer4.Admin.Configuration.Test
 {
-	public class StartupTest : Startup
+    public class StartupTest : Startup
     {
         public StartupTest(IWebHostEnvironment env, IConfiguration configuration) : base(env, configuration)
         {
